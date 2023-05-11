@@ -6,7 +6,7 @@ const EmployeeController = require('../controllers/Emp');
 router.get('/',EmployeeController.index);
 router.post('/show',EmployeeController.show);
 router.post('/store',EmployeeController.store);
-router.post('/update',EmployeeController.update);
-router.post('/delete',EmployeeController.Destroy);
+router.put('/update',EmployeeController.update);
+router.delete('/delete',EmployeeController.Destroy);
 
 module.exports = router

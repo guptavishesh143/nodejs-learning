@@ -5,6 +5,7 @@ const morgan = require("morgan");
 // TO Parse the data in& out
 const bodyParser = require("body-parser");
 
+//ROUTERS 
 const EmployeeRouter = require('./routes/Emp')
 //default port on mongodb is running : 27017
 
@@ -12,6 +13,7 @@ mongoose.connect(
   "mongodb+srv://vishesh:Ace%40123@testtry1.x68sj4z.mongodb.net/",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
+
 const db = mongoose.connection;
 
 db.on("error", (err) => {
@@ -23,10 +25,17 @@ db.once("open", () => {
 });
 
 const app = express();
-
+// app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+
+
+//For employee Route
+app.use('/api/employee',EmployeeRouter);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

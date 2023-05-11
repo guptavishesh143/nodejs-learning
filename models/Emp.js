@@ -10,6 +10,9 @@ const employeeSchema = new Schema({
   },
   email: {
     type: String,
+    unique: true, // no duplicate values
+    required: true,
+    default: 'STRING' // ANY DEFAULT VALUE 
   },
   phone: {
     type: String,
