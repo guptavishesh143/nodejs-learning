@@ -1,8 +1,9 @@
-const Employee = require("../models/Emp");
+const employee = require('../models/Emp');
 
 //show list of Employees
 const index = (req, res, next) => {
-  Employee.find()
+  employee
+    .find()
     .then((response) => {
       res.json({
         response,
@@ -10,7 +11,7 @@ const index = (req, res, next) => {
     })
     .catch((err) => {
       res.json({
-        message: "An Error Occured ",
+        message: 'An Error Occured ',
       });
     });
 };
@@ -24,20 +25,20 @@ const show = async (req, res) => {
         response,
       });
     }
-    const data = await Employee.findById(employeeId);
+    const data = await employee.findById(employeeId);
     if (!data) {
       res.status(400).send({
-        message: "Data Not found!",
+        message: 'Data Not found!',
         data: data,
       });
     }
     res.status(200).send({
-      message: "Data found!",
+      message: 'Data found!',
       data: data,
     });
   } catch (error) {
     res.send({
-      message: "Data Not found!",
+      message: 'Data Not found!',
       data: data,
     });
   }
@@ -47,7 +48,7 @@ const show = async (req, res) => {
 // //ADD EMP TO DB
 // const store = (req, res) => {
 //   console.log("req===>", req.body);
-//   let employee = new Employee({
+//   let employee = new employee({
 //     name: req.body.name,
 //     designation: req.body.designation,
 //     email: req.body.email,
@@ -58,7 +59,7 @@ const show = async (req, res) => {
 //     .create(employee)
 //     .then((response) => {
 //       res.json({
-//         message: "Employee Added Successfully !",
+//         message: "employee Added Successfully !",
 //       });
 //     })
 //     .catch((err) => {
@@ -69,18 +70,27 @@ const show = async (req, res) => {
 // };
 
 //NEW FORMAT
-const store = async (req, res) => {
+const add = async (req, res) => {
   try {
     const { name, designation, email, phoneNo, age } = req.body;
+
+    // let a = Object.keys(req.body);
+    // console.log('====================================');
+    // console.log('a==========>', a);
+    // console.log('====================================');
+    // res.status(200).send({
+    //   message: 'employee Added Successfully !',
+    //   //  data: data,
+    // });
     //VALIDATION FOR NAME
-    if (!name || !name.trim()) {
-      return res.json({
-        message: "Employee Name not found  !",
-      });
-    }
-    const data = await Employee.create(req.body);
+    // if (!name || !name.trim()) {
+    //   return res.json({
+    //     message: 'employee Name not found  !',
+    //   });
+    // }
+    const data = await employee.create(req.body);
     res.status(200).send({
-      message: "Employee Added Successfully !",
+      message: 'employee Added Successfully !',
       data: data,
     });
   } catch (error) {
@@ -101,12 +111,15 @@ const update = async (req, res) => {
     age: req.body.age,
   };
 
-  const data = await Employee.findByIdAndUpdate(employeeId, {
+  const data = await employee.findByIdAndUpdate(employeeId, {
     $set: updateData,
   });
+
+  try {
+  } catch (error) {}
   // .then(() => {
   //   res.json({
-  //     message: "Employee updated Successfully!",
+  //     message: "employee updated Successfully!",
   //   });
   // })
   // .catch((err) => {
@@ -121,15 +134,16 @@ const update = async (req, res) => {
 const Destroy = (req, res, next) => {
   let employeeId = req.body.employeeId;
 
-  Employee.findByIdAndDelete(employeeId)
+  employee
+    .findByIdAndDelete(employeeId)
     .then(() => {
       req.json({
-        message: "Employee Deleted Succesfully!",
+        message: 'employee Deleted Succesfully!',
       });
     })
     .catch((err) => {
       res.json({
-        message: "An Error Occured ",
+        message: 'An Error Occured ',
       });
     });
 };
@@ -139,5 +153,5 @@ module.exports = {
   show,
   update,
   Destroy,
-  store,
+  add,
 };

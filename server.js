@@ -2,22 +2,22 @@ const mongoose = require("mongoose");
 const express = require("express");
 //which api is called (means LOGS )
 const morgan = require("morgan");
-// TO Parse the data in& out
+// TO Parse the data in & out
 const bodyParser = require("body-parser");
 
 //ROUTERS 
 const EmployeeRouter = require('./routes/Emp')
 //default port on mongodb is running : 27017
 
-mongoose.connect(
-  "mongodb+srv://vishesh:Ace%40123@testtry1.x68sj4z.mongodb.net/",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect('mongodb+srv://learn:learn@employee.zl5moa0.mongodb.net/', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
 db.on("error", (err) => {
-  console.log("error =====>", err);
+  console.log('DB Connection error =====>', err);
 });
 
 db.once("open", () => {
